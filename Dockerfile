@@ -26,10 +26,13 @@ RUN rm gcc-arm-none-eabi-9-2020-q2-update-x86_64-linux.tar.bz2
 
 RUN newgrp plugdev
 
-# RUN sudo apt-get install -y python3 python3-pip python3-gi python3-gi-cairo gir1.2-gtk-3.0 git time
-# RUN pip3 install pymaketool
-# RUN pymaketool -v
-# RUN pynewproject CLinuxGCC project_name=hello author="Ericson Joseph"
-# RUN cd hello
-# RUN make clean
-# RUN make
+USER root
+
+RUN apt-get install -y python3 python3-pip python3-gi python3-gi-cairo gir1.2-gtk-3.0 git time
+
+USER ubuntu
+WORKDIR /home/ubuntu
+
+RUN pip3 install pymaketool
+
+RUN pip3 install git+https://github.com/ericsonj/pynewproject_ciaa.git
